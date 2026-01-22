@@ -1,4 +1,6 @@
+using System.Threading.Tasks;
 using Exam.Context;
+using Exam.Helpers;
 using Exam.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -7,12 +9,13 @@ namespace Exam
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<DbContextInitializer>();
 
             builder.Services.AddDbContext<AppDbContext>(option =>
             {
@@ -29,6 +32,9 @@ namespace Exam
             }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
             var app = builder.Build();
+            var scope = app.Services.CreateScope();
+            var dbContextInitializer = scope.ServiceProvider.GetRequiredService<DbContextInitializer>();
+            await dbContextInitializer.Initialize();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

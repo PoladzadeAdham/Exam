@@ -22,11 +22,11 @@
     <script src="~/js/jquery.singlePageNav.min.js"></script>
     <script src="~/js/typed.js"></script>
     <script src="~/js/wow.min.js"></script>
-    <script src="~/js/custom.js"></script>
+    @* <script src="~/js/custom.js"></script> *@
 </head>
 <body id="top">
 
-    <!-- start preloader -->
+    @* <!-- start preloader -->
     <div class="preloader">
         <div class="sk-spinner sk-spinner-wave">
             <div class="sk-rect1"></div>
@@ -35,7 +35,7 @@
             <div class="sk-rect4"></div>
             <div class="sk-rect5"></div>
         </div>
-    </div>
+    </div> *@
     <!-- end preloader -->
     <!-- start header -->
     <header>
@@ -79,6 +79,18 @@
                     <li><a href="#service">SERVICE</a></li>
                     <li><a href="#portfolio">PORTFOLIO</a></li>
                     <li><a href="#contact">CONTACT</a></li>
+
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <li><a href="#">@User.Identity.Name</a></li>
+                        <li><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-action="Login" asp-controller="Account">Login</a></li>
+                        <li><a asp-action="Register" asp-controller="Account">Register</a></li>
+                    }
+
                 </ul>
             </div>
         </div>

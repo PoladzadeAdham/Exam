@@ -3,12 +3,14 @@ using Exam.Context;
 using Exam.Models;
 using Exam.ViewModel.EmployeeViewModel;
 using Exam.ViewModel.ProfessionViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Exam.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class ProfessionController(AppDbContext _context) : Controller
     {
         public async Task<IActionResult> Index()

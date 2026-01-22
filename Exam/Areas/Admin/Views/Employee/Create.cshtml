@@ -1,0 +1,43 @@
+﻿@model EmployeeCreateVM
+
+<form method="post" enctype="multipart/form-data">
+
+    <div asp-validation-summary="All" ></div>
+    <div class="form-group">
+        <label for="Name"></label>
+        <input asp-for="Name" class="form-control" placeholder="Enter Name">
+        <span asp-validation-for="Name" class="text-danger" ></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Description"></label>
+        <input asp-for="Description" class="form-control" placeholder="Enter Description">
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Image"></label>
+        <input asp-for="Image" class="form-control" placeholder="Enter Image">
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Image"></label>
+
+
+        <select asp-for="ProfessionId" class="form-control" >
+            @foreach (Profession profession in ViewBag.Professions)
+            {
+                <option value="@profession.Id" > @profession.Name</option>
+
+            }
+
+        </select>
+
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
